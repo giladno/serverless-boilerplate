@@ -1,0 +1,27 @@
+{
+    "name": "serverless-boilerplate",
+    "version": "1.0.0",
+    "description": "",
+    "engines": {
+        "node": ">=8.1.0"
+    },
+    "main": "handler.js",
+    "scripts": {
+        "deploy": "NODE_ENV=production $(npm bin)/sls deploy --region $(aws configure get region)",
+        "offline": "$(npm bin)/sls offline start",
+        "logs": "$(npm bin)/sls logs -f app -t"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "serverless-http": "^1.5.5"
+    },
+    "devDependencies": {
+        "aws-sdk": "^2.250.1",
+        "serverless": "^1.27.3",
+        "serverless-offline": "^3.25.1"
+    }
+}

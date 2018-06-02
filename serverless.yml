@@ -1,0 +1,25 @@
+service: test
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  timeout: 300
+
+functions:
+  app:
+    handler: handler.app
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
