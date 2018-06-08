@@ -1,7 +1,4 @@
 'use strict';
-/* eslint-disable node/no-unpublished-require */
-const AWS = require('aws-sdk');
-/* eslint-enable node/no-unpublished-require */
 const express = require('express');
 const cors = require('cors');
 

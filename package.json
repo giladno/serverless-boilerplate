@@ -7,13 +7,21 @@
     },
     "main": "handler.js",
     "scripts": {
-        "deploy": "NODE_ENV=production $(npm bin)/sls deploy --region $(aws configure get region)",
+        "deploy": "NODE_ENV=production $(npm bin)/sls deploy -r $(aws configure get region)",
         "offline": "$(npm bin)/sls offline start",
-        "logs": "$(npm bin)/sls logs -f app -t"
+        "logs": "$(npm bin)/sls logs -r $(aws configure get region) -f app -t"
     },
     "keywords": [],
-    "author": "",
+    "author": "Gilad Novik <gilad@novik.ca>",
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/giladno/serverless-boilerplate.git"
+    },
+    "bugs": {
+        "url": "https://github.com/giladno/serverless-boilerplate/issues"
+    },
+    "homepage": "https://github.com/giladno/serverless-boilerplate#readme",
     "dependencies": {
         "cors": "^2.8.4",
         "express": "^4.16.3",
@@ -21,7 +29,43 @@
     },
     "devDependencies": {
         "aws-sdk": "^2.250.1",
+        "babel-eslint": "^8.2.3",
+        "eslint": "^4.19.1",
+        "eslint-plugin-node": "^6.0.1",
         "serverless": "^1.27.3",
+        "serverless-dotenv-plugin": "^1.1.3",
         "serverless-offline": "^3.25.1"
+    },
+    "eslintConfig": {
+        "parser": "babel-eslint",
+        "env": {
+            "node": true
+        },
+        "parserOptions": {
+            "sourceType": "module"
+        },
+        "plugins": [
+            "node"
+        ],
+        "extends": [
+            "eslint:recommended",
+            "plugin:node/recommended"
+        ],
+        "rules": {
+            "no-console": 0,
+            "no-shadow": [
+                "warn",
+                {
+                    "builtinGlobals": true,
+                    "hoist": "all"
+                }
+            ],
+            "no-empty": [
+                "warn",
+                {
+                    "allowEmptyCatch": true
+                }
+            ]
+        }
     }
 }

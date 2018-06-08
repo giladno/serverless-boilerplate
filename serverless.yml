@@ -2,10 +2,13 @@ service: test
 
 plugins:
   - serverless-offline
+  - serverless-dotenv-plugin
 
 custom:
   serverless-offline:
     host: 0.0.0.0
+  dotenv:
+    path: .env.${env:NODE_ENV}
 
 provider:
   name: aws
