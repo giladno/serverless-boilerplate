@@ -23,17 +23,17 @@
     },
     "homepage": "https://github.com/giladno/serverless-boilerplate#readme",
     "dependencies": {
-        "cors": "^2.8.4",
-        "express": "^4.16.3",
-        "serverless-http": "^1.6.0"
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "serverless-http": "^1.8.0"
     },
     "devDependencies": {
-        "aws-sdk": "^2.329.0",
+        "aws-sdk": "^2.357.0",
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.6.1",
-        "eslint-plugin-node": "^7.0.1",
-        "serverless": "^1.32.0",
+        "eslint": "^5.9.0",
+        "eslint-plugin-node": "^8.0.0",
+        "serverless": "^1.33.1",
         "serverless-dotenv-plugin": "^2.0.1",
-        "serverless-offline": "^3.27.0"
+        "serverless-offline": "^3.31.3"
     }
 }
