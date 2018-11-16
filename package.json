@@ -9,6 +9,7 @@
     "scripts": {
         "deploy": "NODE_ENV=production $(npm bin)/sls deploy -r $(aws configure get region)",
         "offline": "$(npm bin)/sls offline start",
+        "remove": "$(npm bin)/sls remove",
         "logs": "$(npm bin)/sls logs -r $(aws configure get region) -f app -t"
     },
     "keywords": [],
