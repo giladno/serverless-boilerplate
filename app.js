@@ -1,6 +1,9 @@
 'use strict';
 const express = require('express');
 const cors = require('cors');
+const log = require('loglevel');
+
+log.setLevel(process.env.LOG_LEVEL || 'warn');
 
 const app = express();
 
@@ -12,7 +15,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-    console.error(err);
+    log.error(err);
     res.status(500).send(process.env.NODE_ENV == 'development' ? err.stack : 'Server Error');
     next;
 });
