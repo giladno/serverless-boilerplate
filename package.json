@@ -3,14 +3,19 @@
     "version": "1.0.0",
     "description": "",
     "engines": {
-        "node": ">=8.1.0"
+        "node": ">=8.10.0"
     },
     "main": "handler.js",
     "scripts": {
         "deploy": "NODE_ENV=production $(npm bin)/sls deploy -r $(aws configure get region)",
         "offline": "$(npm bin)/sls offline start",
         "remove": "$(npm bin)/sls remove",
-        "logs": "$(npm bin)/sls logs -r $(aws configure get region) -f app -t"
+        "logs": "$(npm bin)/sls logs -r $(aws configure get region) -f app -t",
+        "docker-login": "$(aws ecr get-login --no-include-email)",
+        "docker-build": "(cd task1 && docker build -t task1 .)",
+        "docker-tag": "docker tag task1:latest $(node -e \"console.log('`aws sts get-caller-identity --output text --query Account`.dkr.ecr.`aws configure get region`.amazonaws.com/`head -n 1 serverless.yml | cut -d':' -f2 | xargs`')\"):task1",
+        "docker-push": "docker push $(node -e \"console.log('`aws sts get-caller-identity --output text --query Account`.dkr.ecr.`aws configure get region`.amazonaws.com/`head -n 1 serverless.yml | cut -d':' -f2 | xargs`')\"):task1",
+        "docker-deploy": "npm run docker-build && npm run docker-tag && npm run docker-push"
     },
     "keywords": [],
     "author": "Gilad Novik <gilad@novik.ca>",
@@ -35,7 +40,9 @@
         "eslint": "^5.10.0",
         "eslint-plugin-node": "^8.0.0",
         "serverless": "^1.35.0",
+        "serverless-dependson-plugin": "^1.1.2",
         "serverless-dotenv-plugin": "^2.0.1",
-        "serverless-offline": "^3.31.3"
+        "serverless-offline": "^3.31.3",
+        "serverless-vpc-plugin": "^0.1.9"
     }
 }

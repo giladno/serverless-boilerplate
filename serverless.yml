@@ -3,19 +3,64 @@ service: test
 plugins:
   - serverless-offline
   - serverless-dotenv-plugin
+  - serverless-vpc-plugin
+  - serverless-dependson-plugin
+
+package:
+  exclude:
+  - .git/**
+  - .vscode/**
+  - .env.development
+  - task1/**
 
 custom:
   serverless-offline:
     host: 0.0.0.0
     dontPrintOutput: true
-  dotenv:
-    path: .env.${env:NODE_ENV}
+  vpcConfig:
+    cidrBlock: 10.0.0.0/16
+    useNatGateway: true
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
 
 provider:
   name: aws
   runtime: nodejs8.10
   stage: prod
-  timeout: 300
+  timeout: 30
+  vpc:
+    securityGroupIds:
+      - Ref: LambdaExecutionSecurityGroup
+    subnetIds:
+      - Ref: AppSubnet1
+      - Ref: AppSubnet2
+      - Ref: AppSubnet3
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ecs:RunTask
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - iam:PassRole
+      Resource:
+        Fn::Join:
+          - ''
+          - - 'arn:aws:iam::'
+            - Ref: 'AWS::AccountId'
+            - ':role/ecsTaskExecutionRole'
+  environment:
+    FARGATE_CLUSTER: ${self:service}
+    SECURITY_GROUP:
+        'Fn::GetAtt': [LambdaExecutionSecurityGroup, GroupId]
+    SUBNETS:
+      Fn::Join:
+        - ','
+        - - Ref: AppSubnet1
+          - Ref: AppSubnet2
+          - Ref: AppSubnet3
 
 functions:
   app:
@@ -27,3 +72,44 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
+
+resources:
+  Resources:
+    ECRRepository:
+      Type: AWS::ECR::Repository
+      Properties:
+        RepositoryName: ${self:service}
+    ECSCluster:
+      Type: AWS::ECS::Cluster
+      Properties:
+        ClusterName: ${self:service}
+    ECSTask1:
+      Type: AWS::ECS::TaskDefinition
+      Properties:
+        Cpu: 256
+        ExecutionRoleArn: ecsTaskExecutionRole
+        Family: Task1
+        Memory: 0.5GB
+        NetworkMode: awsvpc
+        RequiresCompatibilities:
+          - FARGATE
+        TaskRoleArn: ecsTaskExecutionRole
+        ContainerDefinitions:
+          - Name: Task1
+            Image:
+              Fn::Join:
+                - ''
+                - - Ref: 'AWS::AccountId'
+                  - '.dkr.ecr.'
+                  - Ref: 'AWS::Region'
+                  - '.amazonaws.com/'
+                  - Ref: ECRRepository
+                  - ':task1'
+            LogConfiguration:
+              LogDriver: awslogs
+              Options:
+                awslogs-group:
+                  Ref: AppLogGroup
+                awslogs-region:
+                  Ref: AWS::Region
+                awslogs-stream-prefix: Task1
