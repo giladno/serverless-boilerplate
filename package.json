@@ -29,11 +29,11 @@
         "serverless-http": "^1.8.0"
     },
     "devDependencies": {
-        "aws-sdk": "^2.357.0",
+        "aws-sdk": "^2.377.0",
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.9.0",
+        "eslint": "^5.10.0",
         "eslint-plugin-node": "^8.0.0",
-        "serverless": "^1.33.1",
+        "serverless": "^1.35.0",
         "serverless-dotenv-plugin": "^2.0.1",
         "serverless-offline": "^3.31.3"
     }
