@@ -3,14 +3,15 @@
     "version": "1.0.0",
     "description": "",
     "engines": {
-        "node": ">=8.10.0"
+        "node": ">=8.10"
     },
     "main": "handler.js",
     "scripts": {
-        "deploy": "NODE_ENV=production $(npm bin)/sls deploy -r $(aws configure get region)",
+        "deploy": "NODE_ENV=production $(npm bin)/sls deploy",
+        "deploy:native": "docker run --rm -v $HOME/.aws:/root/.aws -v $PWD:/app -v /app/node_modules/ -w /app -e NODE_ENV=development node:8.10 /bin/bash -c \"cd /app && npm i && NODE_ENV=production $(npm bin)/sls deploy\"",
         "offline": "$(npm bin)/sls offline start",
         "remove": "$(npm bin)/sls remove",
-        "logs": "$(npm bin)/sls logs -r $(aws configure get region) -f app -t",
+        "logs": "$(npm bin)/sls logs -f app -t",
         "docker-login": "$(aws ecr get-login --no-include-email)",
         "docker-build": "(cd task1 && docker build -t task1 .)",
         "docker-tag": "docker tag task1:latest $(node -e \"console.log('`aws sts get-caller-identity --output text --query Account`.dkr.ecr.`aws configure get region`.amazonaws.com/`head -n 1 serverless.yml | cut -d':' -f2 | xargs`')\"):task1",
@@ -35,11 +36,11 @@
         "serverless-http": "^1.8.0"
     },
     "devDependencies": {
-        "aws-sdk": "^2.377.0",
+        "aws-sdk": "^2.382.0",
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.10.0",
+        "eslint": "^5.11.0",
         "eslint-plugin-node": "^8.0.0",
-        "serverless": "^1.35.0",
+        "serverless": "^1.35.1",
         "serverless-dependson-plugin": "^1.1.2",
         "serverless-dotenv-plugin": "^2.0.1",
         "serverless-offline": "^3.31.3",
