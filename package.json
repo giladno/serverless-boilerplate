@@ -33,17 +33,17 @@
         "cors": "^2.8.5",
         "express": "^4.16.4",
         "loglevel": "^1.6.1",
-        "serverless-http": "^1.8.0"
+        "serverless-http": "^1.9.0"
     },
     "devDependencies": {
-        "aws-sdk": "^2.382.0",
+        "aws-sdk": "^2.395.0",
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.11.0",
-        "eslint-plugin-node": "^8.0.0",
-        "serverless": "^1.35.1",
+        "eslint": "^5.12.1",
+        "eslint-plugin-node": "^8.0.1",
+        "serverless": "^1.36.3",
         "serverless-dependson-plugin": "^1.1.2",
         "serverless-dotenv-plugin": "^2.0.1",
-        "serverless-offline": "^3.31.3",
+        "serverless-offline": "^4.2.0",
         "serverless-vpc-plugin": "^0.1.9"
     }
 }
