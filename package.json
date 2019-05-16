@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "engines": {
-        "node": ">=8.10"
+        "node": ">=10.15"
     },
     "main": "handler.js",
     "scripts": {
@@ -33,17 +33,17 @@
         "cors": "^2.8.5",
         "express": "^4.16.4",
         "loglevel": "^1.6.1",
-        "serverless-http": "^1.9.0"
+        "serverless-http": "^2.0.2"
     },
     "devDependencies": {
-        "aws-sdk": "^2.395.0",
+        "aws-sdk": "^2.456.0",
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.12.1",
-        "eslint-plugin-node": "^8.0.1",
-        "serverless": "^1.36.3",
+        "eslint": "^5.16.0",
+        "eslint-plugin-node": "^9.0.1",
+        "serverless": "^1.42.3",
         "serverless-dependson-plugin": "^1.1.2",
-        "serverless-dotenv-plugin": "^2.0.1",
-        "serverless-offline": "^4.2.0",
-        "serverless-vpc-plugin": "^0.1.9"
+        "serverless-dotenv-plugin": "^2.1.1",
+        "serverless-offline": "^4.10.3",
+        "serverless-vpc-plugin": "^0.7.0"
     }
 }
