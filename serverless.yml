@@ -19,12 +19,13 @@ custom:
     dontPrintOutput: true
   vpcConfig:
     cidrBlock: 10.0.0.0/16
-    useNatGateway: true
+    createNatGateway: true
     zones:
       - us-east-1a
       - us-east-1b
       - us-east-1c
-
+    subnetGroups:
+      - rds
 provider:
   name: aws
   runtime: nodejs10.x
