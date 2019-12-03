@@ -36,14 +36,14 @@
         "serverless-http": "^2.3.0"
     },
     "devDependencies": {
-        "aws-sdk": "^2.578.0",
+        "aws-sdk": "^2.582.0",
         "babel-eslint": "^10.0.3",
-        "eslint": "^6.7.0",
+        "eslint": "^6.7.2",
         "eslint-plugin-node": "^10.0.0",
         "serverless": "^1.58.0",
         "serverless-dependson-plugin": "^1.1.2",
         "serverless-dotenv-plugin": "^2.1.1",
-        "serverless-offline": "^5.12.0",
-        "serverless-vpc-plugin": "^0.9.3"
+        "serverless-offline": "^5.12.1",
+        "serverless-vpc-plugin": "^0.9.4"
     }
 }
